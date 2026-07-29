@@ -59,7 +59,7 @@ const HomeScreen = ({
           className="search-input"
           placeholder="Search for products..."
           onClick={onSearchClick}
-          onChange={(e) => onSearchClick(e.target.value)}
+          readOnly
         />
       </div>
 

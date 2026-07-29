@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import ProductCard from '../components/ProductCard';
 import EmptyState from '../components/EmptyState';
@@ -9,43 +9,29 @@ import { searchProducts } from '../utils/productUtils';
  * @param {object} props
  * @param {array} props.products - All products array
  * @param {array} props.cart - Current cart array
- * @param {string} props.searchQuery - Initial search query
  * @param {function} props.onBack - Back button handler
  * @param {function} props.onAddToCart - Add to cart handler
  * @param {function} props.onIncrement - Increment quantity handler
  * @param {function} props.onDecrement - Decrement quantity handler
  * @param {function} props.onCartClick - Cart click handler
- * @param {function} props.onSearchChange - Search change handler
  */
 const SearchScreen = ({
   products = [],
   cart = [],
-  searchQuery = '',
   onBack,
   onAddToCart,
   onIncrement,
   onDecrement,
-  onCartClick,
-  onSearchChange
+  onCartClick
 }) => {
-  const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery);
+  const [searchQuery, setSearchQuery] = useState('');
   const [filteredProducts, setFilteredProducts] = useState(products);
-
-  useEffect(() => {
-    setLocalSearchQuery(searchQuery);
-  }, [searchQuery]);
-
-  useEffect(() => {
-    const filtered = searchProducts(products, localSearchQuery);
-    setFilteredProducts(filtered);
-  }, [localSearchQuery, products]);
 
   const handleSearchChange = (e) => {
     const query = e.target.value;
-    setLocalSearchQuery(query);
-    if (onSearchChange) {
-      onSearchChange(query);
-    }
+    setSearchQuery(query);
+    const filtered = searchProducts(products, query);
+    setFilteredProducts(filtered);
   };
 
   const getCartQuantity = (productId) => {
@@ -72,7 +58,7 @@ const SearchScreen = ({
           type="text"
           className="search-input"
           placeholder="Search for products..."
-          value={localSearchQuery}
+          value={searchQuery}
           onChange={handleSearchChange}
           autoFocus
         />
