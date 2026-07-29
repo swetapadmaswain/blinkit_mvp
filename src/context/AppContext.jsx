@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
 import { allProducts } from '../data/products';
 import { categories } from '../data/categories';
 import { personalisedRecommendations } from '../data/recommendations';
@@ -58,26 +58,25 @@ export const AppProvider = ({ children }) => {
   
   // Order history state
   const [orderHistory, setOrderHistory] = useState(getUserPersona().orderHistory);
-  
-  // Get current recommendation with product details
-  const currentRecommendation = getRecommendationWithProduct(
-    getCurrentRecommendation(recommendations),
-    allProducts
-  );
-  
-  // Get cross-sell recommendation for cart
-  const crossSellRecommendation = shouldShowCrossSell(
-    cart,
-    getCurrentRecommendation(recommendations)
-  ) ? getRecommendationWithProduct(
-      getCurrentRecommendation(recommendations),
-      allProducts
-    ) : null;
-  
+
+  // Get current recommendation with product details (memoized to update when recommendations change)
+  const currentRecommendation = useMemo(() => {
+    const currentRec = getCurrentRecommendation(recommendations);
+    return getRecommendationWithProduct(currentRec, allProducts);
+  }, [recommendations, allProducts]);
+
+  // Get cross-sell recommendation for cart (memoized to update when recommendations or cart change)
+  const crossSellRecommendation = useMemo(() => {
+    const currentRec = getCurrentRecommendation(recommendations);
+    return shouldShowCrossSell(cart, currentRec)
+      ? getRecommendationWithProduct(currentRec, allProducts)
+      : null;
+  }, [cart, recommendations, allProducts]);
+
   // Get random promo banner
   const promoBanners = getPromoBanners();
   const promoBanner = promoBanners[Math.floor(Math.random() * promoBanners.length)];
-  
+
   // Get frequently bought products
   const frequentlyBought = getFrequentlyBought();
 
