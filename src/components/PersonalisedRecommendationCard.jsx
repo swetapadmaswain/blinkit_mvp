@@ -63,7 +63,7 @@ const PersonalisedRecommendationCard = ({
         </button>
         <button 
           className="personalised-skip-button" 
-          onClick={onSkip}
+          onClick={() => onSkip && onSkip()}
         >
           Skip
         </button>

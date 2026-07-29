@@ -30,7 +30,8 @@ const SearchScreen = ({
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
-    setFilteredProducts(searchProducts(products, query));
+    const filtered = searchProducts(products, query);
+    setFilteredProducts(filtered);
   };
 
   const getCartQuantity = (productId) => {
