@@ -16,6 +16,7 @@ body {
   background-color: var(--blinkit-gray);
   color: var(--blinkit-text);
   font-size: var(--font-size-sm);
+  overflow-x: hidden;
 }
 
 #root {
@@ -25,25 +26,33 @@ body {
 .App {
   min-height: 100vh;
   background-color: var(--blinkit-gray);
+  animation: fade-in 0.3s var(--transition-normal);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Scrollbar Styles */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
   background: var(--blinkit-gray);
+  border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--blinkit-border);
   border-radius: var(--radius-full);
+  transition: background var(--transition-fast);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--blinkit-text);
+  background: var(--blinkit-text-light);
 }
 
 /* Button Reset */
