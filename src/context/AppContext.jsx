@@ -133,8 +133,8 @@ export const AppProvider = ({ children }) => {
   }, [currentScreen]);
 
   // Search actions
-  const handleSearchClick = useCallback(() => {
-    setSearchQuery('');
+  const handleSearchClick = useCallback((query = '') => {
+    setSearchQuery(query);
     setCurrentScreen(SCREENS.SEARCH);
   }, []);
 

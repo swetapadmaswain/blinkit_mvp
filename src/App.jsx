@@ -65,11 +65,13 @@ function AppContent() {
           <SearchScreen
             products={products}
             cart={cart}
+            searchQuery={searchQuery}
             onBack={navigateBack}
             onAddToCart={addToCart}
             onIncrement={incrementQuantity}
             onDecrement={decrementQuantity}
             onCartClick={handleCartClick}
+            onSearchChange={handleSearchChange}
           />
         );
 
