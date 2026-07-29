@@ -183,10 +183,16 @@ export const AppProvider = ({ children }) => {
 
   const handleSkipRecommendation = useCallback(() => {
     const currentRec = getCurrentRecommendation(recommendations);
+    console.log('Skip clicked, current recommendation:', currentRec);
     if (currentRec) {
-      dismissRecommendation(currentRec.id);
+      setRecommendations(prevRecs => 
+        prevRecs.map(rec => 
+          rec.id === currentRec.id ? { ...rec, dismissed: true } : rec
+        )
+      );
+      console.log('Dismissed recommendation:', currentRec.id);
     }
-  }, [recommendations, dismissRecommendation]);
+  }, [recommendations]);
 
   // Order actions
   const placeOrder = useCallback(() => {

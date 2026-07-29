@@ -32,6 +32,7 @@ const SearchScreen = ({
     setSearchQuery(query);
     const filtered = searchProducts(products, query);
     setFilteredProducts(filtered);
+    console.log('Search query:', query, 'Filtered products:', filtered.length);
   };
 
   const getCartQuantity = (productId) => {
