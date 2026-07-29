@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
-import { getDefaultAddress, getPaymentMethods } from '../data/userPersona';
+import { getDefaultAddress } from '../data/userPersona';
+import { getPaymentMethods } from '../data/paymentMethods';
 import { calculateBill } from '../utils/cartUtils';
 
 /**
